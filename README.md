@@ -20,11 +20,11 @@ cause harm so beware what you test against.
 
 ### Run the fuzzer
 
-    python fuzz_http.py
+    python fuzz_http.py -H <host> -p <port> -a <address_logger>
 
 It's fun to watch the fuzzer progress, but there is a lot of output, so you may want to pipe it out.
 
 ### Watch it in action
-Open your browser to [http://127.0.0.1:26000/]() to see progress.
+Open your browser to [http://<address_logger>:26000/]() to see progress.
 
 Watch the HTTP server under test to see if anything goes wrong.

@@ -1,13 +1,15 @@
 #!/usr/bin/env python
 # Designed for use with boofuzz v0.0.9
 from boofuzz import *
+import argparse
 
 
-def main():
+def main(host, port, addr):
     session = Session(
         target=Target(
-            connection=SocketConnection("127.0.0.1", 80, proto='tcp')
+            connection=SocketConnection(host, port, proto='tcp')
         ),
+        web_address=addr
     )
 
     s_initialize(name="Request")
@@ -26,4 +28,15 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+
+  parser = argparse.ArgumentParser()
+  parser.add_argument("-H", "--host", type=str, required=True, dest="host")
+  parser.add_argument("-p", "--port", type=int, required=True, dest="port")
+  parser.add_argument("-a", "--address", type=str, default="localhost", dest="addr" ,\
+          help="By default boofuzz appends results on http://127.0.0.1:26000/, then we may want to expose the service on other addresses"
+  )
+
+  args = parser.parse_args()
+  main(args.host, args.port, args.addr)
+
+
